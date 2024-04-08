@@ -14,8 +14,10 @@ for now:
 
 pip install openai
 
+get an openAI api-key and put it in a file named api-key.txt inside ./data folder
+
 define roles by adding text snippets as individual texfiles with one line of text in them to named role-folders in data/roles
 
-all actors will be primed with text-snippets from data/roles/all plus the snippets found in their respective role-folder
+all actors will be primed with text-snippets from ./data/roles/all plus the snippets found in their respective role-folder
 
 
