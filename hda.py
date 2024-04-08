@@ -50,10 +50,16 @@ def wait_input():
     if inp == 'exit':
         sys.exit()
 
+print("** enter role name for first agent **")
+first = input()
+print()
+print("** enter role name for second agent **")
+second = input()
+print()
 
 session = Session()
-session.agents.append( Agent(1, "\033[35m", "hobbyist_vulcanologist") )
-session.agents.append( Agent(2, "\033[36m", "expert_vulcanologist") )
+session.agents.append( Agent(1, "\033[35m", first) )
+session.agents.append( Agent(2, "\033[36m", second) )
 
 
 print()
