@@ -4,7 +4,7 @@ from agent import Agent
 import file
 import greet
 import sys
-
+import time
 
 white_string = "\033[37m"
 

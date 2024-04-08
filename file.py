@@ -19,6 +19,7 @@ def list_role_files(role_name, default_subdirectory_name='default'):
     if os.path.exists(subdirectory_path) and os.path.isdir(subdirectory_path):
         entries = os.listdir(subdirectory_path)
         files = [os.path.abspath(os.path.join(subdirectory_path, entry)) for entry in entries if os.path.isfile(os.path.join(subdirectory_path, entry))]
+        files = sorted(files)
         return files
     else:
         print(f"Error: '{default_subdirectory_name}' does not exist in '{roles_directory}'.")

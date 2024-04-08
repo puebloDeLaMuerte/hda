@@ -1,5 +1,6 @@
 import json
 import file
+import time
 
 class Agent:
 
@@ -14,6 +15,7 @@ class Agent:
         self.message_history = []
         print()
         print(f"creating agent with id {self.id} and role {self.color_string}{self.roleName}{self.white_string}.")
+        time.sleep(0.1)
         self.find_role_description()
         
     
@@ -23,6 +25,7 @@ class Agent:
         roleFiles.extend( file.list_role_files(self.roleName) )
         
         for f in roleFiles:
+            time.sleep(0.1)
             print("including role-file: ", f)
             self.roleString = self.roleString + " " + file.read_file_string(f)
         
