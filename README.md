@@ -14,7 +14,7 @@ for now:
 
 pip install openai
 
-get an openAI api-key and put it in a file named api-key.txt inside ./data folder
+get an openAI api-key and put it in a file named api_key.txt inside ./data folder
 
 define roles by adding text snippets as individual texfiles with one line of text in them to named role-folders in data/roles
 
