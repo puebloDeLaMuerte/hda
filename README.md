@@ -1,10 +1,11 @@
+```markdown
     __  ______  ___ 
    / / / / __ \/   |
   / /_/ / / / / /| |
  / __  / /_/ / ___ |
 /_/ /_/_____/_/  |_|
 human director actor
-
+```
 ...is a little research project by blutgruppe digital that makes OpenAIs ChatGPT talk to itself.
 Currently it is possible to define individual roles for two actors that will have a conversation.
 We want to add capability for more actors and a channel for a human to be part of the conversation as well.
