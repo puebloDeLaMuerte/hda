@@ -3,11 +3,13 @@ from session import Session
 from agent import Agent
 import file
 import greet
+import sys
 
 
+white_string = "\033[37m"
 
 client = OpenAI(
-    api_key=file.readFileString("data/api_key.txt"),
+    api_key=file.read_file_string("data/api_key.txt"),
 )
 
 
@@ -17,7 +19,7 @@ def get_next_conversation_item(agent1,agent2):
     agent1.add_message(agent1.id,reply)
     agent2.add_message(agent1.id,reply)
 
-    print( "\033[37magent",agent1.id,": ",agent1.color_string, reply )
+    print( f"{white_string}agent",agent1.id,": ",agent1.color_string, reply )
     print()
 
 
@@ -37,25 +39,40 @@ def request_completion(messages_array):
 
 
 
+def wait_input():
+    inp = input()
+    if inp == 'd':
+        for agent in session.agents:
+            agent.dump_message_history()
+    if inp == 'df':
+        for agent in session.agents:
+            agent.dump_formatted_messages()
+    if inp == 'exit':
+        sys.exit()
+
+
 session = Session()
+session.agents.append( Agent(1, "\033[35m", "hobbyist_vulcanologist") )
+session.agents.append( Agent(2, "\033[36m", "expert_vulcanologist") )
 
-session.agents.append( Agent(1,"\033[35m","We're roleplaying. this is your role: You are an interrested hobbyist in the field of Vulcanology. You hear Volcanos sometimes produce rings of smoke and you wonder if that means that they are homes to silicate based lifeforms, living deep in their bellies, but you also have read some bits and pieces of actual Volcano-science here and there. You are in a colloquial discussion, so you talk in shorter sentences, being in a fast paced a conversation rather than elaborately explaining concepts or your views. please engage in a fluid conversation with me. With each reply you only state your next part of the conversation. don't give me whole back-and-forth conversational fragments. only play your role and let me talk to you instead of outputting whole conversations.") )
-session.agents.append( Agent(2,"\033[36m","We're roleplaying. this is your role: You are an experienced researcher in the Fields of Geology specializing on the science around Volcanos. You are an absolute expert on this and you dispise misinformation and unscientific talk. You work as science communicator to educate the public about the process of science itself as well as the specifics of your field of expertise. You are in a colloquial discussion, so you talk in shorter sentences, being in a fast paced a conversation rather than elaborately explaining concepts or your views.  please engage in a fluid conversation with me. With each reply you only state your next part of the conversation. don't give me whole back-and-forth conversational fragments. only play your role and let me talk to you instead of outputting whole conversations.") )
 
-
+print()
+print("** how to use **")
+print()
+print("   press [enter] to trigger next conversation item")
+print("   type 'd' [enter] to log the conversation history")
+print("   type 'df' [enter] to log the conversation history formatted as sent to openAI via messages array")
+print()
+print()
+print("** starting conversation now **")
+print()
 while True:
 
     get_next_conversation_item(session.agents[0],session.agents[1])
-    inp = input()
-    if inp == 'd':
-        session.agents[0].dump_message_history()
-    if inp == 'df':
-        session.agents[0].dump_formatted_messages()
+    wait_input()
     get_next_conversation_item(session.agents[1],session.agents[0])
-    inp = input()
-    if inp == 'd':
-        session.agents[1].dump_message_history()
-    if inp == 'df':
-        session.agents[1].dump_formatted_messages()
+    wait_input()
+    
+
 
 

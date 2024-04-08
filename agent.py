@@ -1,14 +1,31 @@
 import json
+import file
 
 class Agent:
 
   
-    def __init__(self,id,color_string,role):
+    def __init__(self,id,color_string,roleName):
     
         self.id = id
         self.color_string = color_string
-        self.role = role
+        self.white_string = "\033[37m"
+        self.roleName = roleName
+        self.roleString = ""
         self.message_history = []
+        print()
+        print(f"creating agent with id {self.id} and role {self.color_string}{self.roleName}{self.white_string}.")
+        self.find_role_description()
+        
+    
+    def find_role_description(self):
+        
+        roleFiles = file.list_role_files("all")
+        roleFiles.extend( file.list_role_files(self.roleName) )
+        
+        for f in roleFiles:
+            print("including role-file: ", f)
+            self.roleString = self.roleString + " " + file.read_file_string(f)
+        
         
         
     def add_message(self,agent_id, content):
@@ -19,7 +36,7 @@ class Agent:
         
     def get_system_message(self):
     
-        return {"role":"system", "content": self.role}
+        return {"role":"system", "content": self.roleString}
     
     
         
@@ -39,7 +56,7 @@ class Agent:
     
     def dump_message_history(self):
     
-        filename = f"agent_{self.id}_dump.txt"
+        filename = f"logs/agent_{self.id}_dump.txt"
         
         with open(filename, 'w', encoding='utf-8') as file:
             json.dump(self.message_history, file, ensure_ascii=False, indent=4)
@@ -48,7 +65,7 @@ class Agent:
         
     def dump_formatted_messages(self):
 
-        filename = f"agent_{self.id}_dump_formatted.txt"
+        filename = f"logs/agent_{self.id}_dump_formatted.txt"
         with open(filename, 'w', encoding='utf-8') as file:
 
             json.dump(self.get_formated_messages(), file, ensure_ascii=False, indent=4)
